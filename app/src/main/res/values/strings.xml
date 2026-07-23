@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Hash Vault</string>
+    <string name="enter_text">Enter text</string>
+    <string name="generate">Generate</string>
+    <string name="clear">Clear</string>
+    <string name="md5">MD5</string>
+    <string name="hash_text">Hash will appear here</string>
+    <string name="copy">Copy</string>
+    <string name="sha_1">SHA-1</string>
+    <string name="sha_256">SHA-256</string>
+
 </resources>
