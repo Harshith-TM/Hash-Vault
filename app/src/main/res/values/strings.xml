@@ -8,5 +8,12 @@
     <string name="copy">Copy</string>
     <string name="sha_1">SHA-1</string>
     <string name="sha_256">SHA-256</string>
+    <string name="sha_384">SHA-384</string>
+    <string name="sha_512">SHA-512</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="compare_hash">Compare hash</string>
+    <string name="compare">Compare</string>
+    <string name="match_text">✓ Match</string>
+    <string name="no_match_text">✗ No Match</string>
 
 </resources>
