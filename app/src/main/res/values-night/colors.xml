@@ -6,14 +6,14 @@
     <color name="Golden_Orange">#F1A517</color>
     <color name="Light_Grey">#EFEFEF</color>
     <color name="Navy_Blue">#142F45</color>
-    <color name="Green">#2E7D32</color>
-    <color name="Red">#C62828</color>
+    <color name="Green">#66BB6A</color>
+    <color name="Red">#EF5350</color>
 
-    <color name="primary">@color/Midnight_Blue</color>
+    <color name="primary">@color/Golden_Orange</color>
     <color name="secondary">@color/Golden_Orange</color>
-    <color name="text">@color/Midnight_Blue</color>
-    <color name="background">@color/white</color>
-    <color name="card_background">@color/Light_Grey</color>
+    <color name="text">@color/white</color>
+    <color name="background">@color/Midnight_Blue</color>
+    <color name="card_background">@color/Navy_Blue</color>
     <color name="match_green">@color/Green</color>
     <color name="mismatch_red">@color/Red</color>
 </resources>
