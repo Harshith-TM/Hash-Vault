@@ -15,5 +15,6 @@
     <string name="compare">Compare</string>
     <string name="match_text">✓ Match</string>
     <string name="no_match_text">✗ No Match</string>
+    <string name="export_hashes">Export to File</string>
 
 </resources>
