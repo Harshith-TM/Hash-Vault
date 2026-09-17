@@ -16,5 +16,13 @@
     <string name="match_text">✓ Match</string>
     <string name="no_match_text">✗ No Match</string>
     <string name="export_hashes">Export to File</string>
+    <string name="text_hash">Text Hash</string>
+    <string name="file_hash">File Hash</string>
+    <string name="select_file">Select File</string>
+    <string name="no_file_selected">No file selected</string>
+    <string name="select_algorithm">Select Algorithm</string>
+    <string name="generate_file_hash">Generate Hash</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
