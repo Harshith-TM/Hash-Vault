@@ -1,9 +1,12 @@
 package com.example.hashvault.UI;
 
+import android.Manifest;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
@@ -24,13 +29,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hashvault.R;
 import com.example.hashvault.Model.HashMatchResult;
+import com.example.hashvault.Utils.ExportUtils;
 import com.example.hashvault.Utils.ThemePreferences;
 import com.example.hashvault.ViewModel.HashViewModel;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button buttonGenerate, buttonClear, buttonCompare;
+    Button buttonGenerate, buttonClear, buttonCompare, buttonExport;
     Button buttonCopyMD5, buttonCopySHA1, buttonCopySHA256, buttonCopySHA384, buttonCopySHA512;
     TextView md5_hash, sha1_hash, sha256_hash, sha384_hash, sha512_hash;
     TextView matchStatusMd5, matchStatusSha1, matchStatusSha256, matchStatusSha384, matchStatusSha512;
@@ -38,12 +46,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SwitchMaterial switchDarkMode;
     HashViewModel hashViewModel;
 
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
+                if (granted) {
+                    performExport();
+                } else {
+                    Toast.makeText(this, "Storage permission needed to export", Toast.LENGTH_SHORT).show();
+                }
+            });
+
     private void initViews() {
         inputText = findViewById(R.id.input_text);
         compareInput = findViewById(R.id.compare_input);
         buttonGenerate = findViewById(R.id.button_generate);
         buttonClear = findViewById(R.id.button_clear);
         buttonCompare = findViewById(R.id.button_compare);
+        buttonExport = findViewById(R.id.button_export);
         switchDarkMode = findViewById(R.id.switch_dark_mode);
 
         md5_hash = findViewById(R.id.md5_hash);
@@ -106,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonGenerate.setOnClickListener(this);
         buttonClear.setOnClickListener(this);
         buttonCompare.setOnClickListener(this);
+        buttonExport.setOnClickListener(this);
         buttonCopyMD5.setOnClickListener(this);
         buttonCopySHA1.setOnClickListener(this);
         buttonCopySHA256.setOnClickListener(this);
@@ -140,6 +159,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void exportHashes() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            return;
+        }
+        performExport();
+    }
+
+    private void performExport() {
+        try {
+            ExportUtils.exportHashes(this, inputText.getText().toString(), hashViewModel.getHashData().getValue());
+            Toast.makeText(this, "Exported to Downloads/HashVaultExport.txt", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Toast.makeText(this, "Export failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
@@ -147,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String input = inputText.getText().toString();
 
         if (input.isEmpty() && viewId != R.id.button_clear && viewId != R.id.button_compare) {
-            Toast.makeText(this, "Generate a hash first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter Some Text", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -174,6 +212,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             }
             hashViewModel.compareHash(compareHash);
+        } else if (viewId == R.id.button_export) {
+            if (hashViewModel.getHashData().getValue() == null) {
+                Toast.makeText(this, "Generate a hash first", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            exportHashes();
         } else if (viewId == R.id.button_copy_md5) {
             manager.setPrimaryClip(ClipData.newPlainText("MD5 Hash", md5_hash.getText().toString()));
             Toast.makeText(this, "MD5 Hash Copied!", Toast.LENGTH_SHORT).show();
