@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-
+import com.example.hashvault.Model.FileHashModel;
 import com.example.hashvault.Model.HashModel;
 
 import java.io.File;
@@ -39,6 +39,23 @@ public class ExportUtils {
         sb.append("SHA256: ").append(hashModel.getSha256Hash()).append("\n");
         sb.append("SHA384: ").append(hashModel.getSha384Hash()).append("\n");
         sb.append("SHA512: ").append(hashModel.getSha512Hash()).append("\n");
+        sb.append("------------------------------\n");
+        return sb.toString();
+    }
+
+    public static void exportFileHash(Context context, FileHashModel model) throws IOException {
+        String content = buildFileExportContent(model);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            exportViaMediaStore(context, content);
+        } else {
+            exportLegacy(content);
+        }
+    }
+
+    private static String buildFileExportContent(FileHashModel model) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("File: ").append(model.getFileName()).append("\n");
+        sb.append(model.getAlgorithm()).append(": ").append(model.getHashValue()).append("\n");
         sb.append("------------------------------\n");
         return sb.toString();
     }
