@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_text_hash"
+        android:icon="@drawable/ic_text_hash"
+        android:title="@string/text_hash" />
+    <item
+        android:id="@+id/nav_file_hash"
+        android:icon="@drawable/ic_file_hash"
+        android:title="@string/file_hash" />
+</menu>
