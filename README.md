@@ -1,6 +1,6 @@
 # 📱 Hash Vault
 
-HashVault is a simple Android application that generates cryptographic hash values for user-entered text. The application supports multiple hashing algorithms using Java's built-in MessageDigest class, providing a fast and reliable way to compute hash digests.
+HashVault is a simple Android application that generates cryptographic hash values for user-entered text and files. The application supports multiple hashing algorithms using Java's built-in MessageDigest class, providing a fast and reliable way to compute hash digests.
 The project follows the Model-View-ViewModel (MVVM) architecture to ensure a clean separation of concerns, making the codebase modular, maintainable, and easy to understand. The UI interacts with the ViewModel, which coordinates the hashing logic through the repository layer, while utility classes handle the cryptographic operations.
 
 ---
@@ -89,7 +89,7 @@ While building this project, I gained experience with:
 
 <div align="center">
 
-![Project Status](https://img.shields.io/badge/Project%20Status-25%25%20Completed-ffd900?style=for-the-badge)
+![Project Status](https://img.shields.io/badge/Project%20Stauts-Completed-66ff00?style=for-the-badge)
 
 </div>
 
