@@ -1,13 +1,13 @@
 # 📱 Hash Vault
 
-HashVault is a simple Android application that generates cryptographic hash values for user-entered text. The application supports MD5, SHA-1, and SHA-256 hashing algorithms using Java's built-in MessageDigest class, providing a fast and reliable way to compute hash digests.
+HashVault is a simple Android application that generates cryptographic hash values for user-entered text. The application supports multiple hashing algorithms using Java's built-in MessageDigest class, providing a fast and reliable way to compute hash digests.
 The project follows the Model-View-ViewModel (MVVM) architecture to ensure a clean separation of concerns, making the codebase modular, maintainable, and easy to understand. The UI interacts with the ViewModel, which coordinates the hashing logic through the repository layer, while utility classes handle the cryptographic operations.
 
 ---
 
 ## 🚀 Key Features
 
-- Generate MD5, SHA-1, and SHA-256 hashes from text input.
+- Generate MD5, SHA-1, SHA-256, SHA384 and SHA512 hashes from text input.
 - Uses Java's MessageDigest API for secure hash generation.
 - Implements the MVVM architecture for better code organization.
 - Clean and simple user interface.
@@ -33,19 +33,30 @@ app
         ├── java
         │   └── com.example.hashvault
         │       ├── model
+        │       │   ├── FileHashModel.java
+        │       │   ├── HashMatchResult.java
         │       │   └── HashModel.java
         │       ├── repository
+        │       │   ├── FileHashRepository.java
         │       │   └── HashRepository.java
         │       ├── viewmodel
+        │       │   ├── FileHashViewModel.java
         │       │   └── HashViewModel.java
         │       ├── ui
+        │       │   ├── FileHashFragment.java
+        │       │   ├── TextHashFragment.java
         │       │   └── MainActivity.java
         │       └── utils
-        │           └── HashUtils.java
+        │           ├── ExportUtils.java
+        │           ├── FileHashUtils.java
+        │           ├── HashUtils.java
+        │           └── ThemePreferences.java
         │
         ├── res
         │   ├── layout
-        │   │   └── activity_main.xml
+        │   │   ├── activity_main.xml
+        │   │   ├── fragment_file_hash.xml
+        │   │   └── fragment_text_hash.xml
         │   ├── values
         │   ├── drawable
         │   └── font
@@ -56,9 +67,9 @@ app
 
 ## 📷 Screenshots
 
-| Home                             | After Generating Hash                     |
-|----------------------------------|-------------------------------------------|
-| ![](ProjectScreenShots/home.png) | ![](ProjectScreenShots/hashGenerated.png) |
+| TextHash1_LightMode                             | TextHash2_LightMode                             | TextHash_DarkMode                             | FileHash_LightMode                             | FileHash_DarkMode                             |
+|-------------------------------------------------|-------------------------------------------------|-----------------------------------------------|------------------------------------------------|-----------------------------------------------|
+| ![](ProjectScreenShots/TextHash1_LightMode.jpg) | ![](ProjectScreenShots/TextHash2_LightMode.jpg) | ![](ProjectScreenShots/TextHash_DarkMode.jpg) | ![](ProjectScreenShots/FileHash_LightMode.jpg) | ![](ProjectScreenShots/FileHash_DarkMode.jpg) |
 
 ---
 
